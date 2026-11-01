@@ -9,11 +9,11 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict
+from decimal import Decimal
 from pathlib import Path
 from typing import Any
 
 from .models import Author, Ledger, SplitRule, Transaction
-from .split import Decimal
 
 
 def _dec(value: Any) -> Decimal:

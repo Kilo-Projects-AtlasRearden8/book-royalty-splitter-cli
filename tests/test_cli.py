@@ -114,6 +114,31 @@ def test_validate_ok(tmp_path, capsys) -> None:
     assert "OK" in out
 
 
+def test_add_tx_payer_with_royalty_rejected(tmp_path, capsys) -> None:
+    ledger_file = tmp_path / "ledger.json"
+    _run(["init"], capsys, ledger_file)
+    _run(["add-author", "Dylan"], capsys, ledger_file)
+    _run(["add-author", "Jordan"], capsys, ledger_file)
+    _run(["add-rule", "r", "Dylan:60,Jordan:40"], capsys, ledger_file)
+    code, out, err = _run(
+        [
+            "add-tx",
+            "--kind",
+            "royalty",
+            "--amount",
+            "1000.00",
+            "--description",
+            "KDP",
+            "--rule",
+            "r",
+            "--payer",
+            "Dylan",
+        ],
+        capsys, ledger_file,
+    )
+    assert code == 1
+
+
 def test_main_no_command_errors() -> None:
     with pytest.raises(SystemExit):
         main([])

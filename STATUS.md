@@ -10,9 +10,9 @@ Package: `book_royalty_splitter` (src layout), console script `royalty-split`.
 Files:
 - `LICENSE` — MIT, copyright line exactly `Copyright (c) 2026 Asdale Dynamics, LLC`
 - `README.md` — usage, commands, math, credits Asdale Dynamics, LLC
-- `pyproject.toml` — packaging, pytest/ruff/mypy config, `royalty-split` entry point
+- `pyproject.toml` — packaging, pytest/ruff config, `royalty-split` entry point
 - `src/book_royalty_splitter/` — models, split math, statements, CSV export, JSON IO, CLI
-- `tests/` — 24 tests covering split math, statements, IO, and CLI
+- `tests/` — 26 tests covering split math, statements, IO, and CLI
 
 Core modules:
 - `models.py` — `Author`, `SplitRule`, `Transaction`, `Ledger` dataclasses; Decimal money; validation that rule percentages sum to 100
@@ -46,10 +46,10 @@ Default ledger file: `royalty_splitter.json` in the current folder (override wit
 
 ## Verification results
 
-- `python3 -m pytest` — **24 passed** (split math exact totals, fractional-share remainders, income/expense sign handling, payer-100% expense, rule validation, JSON round-trip, CLI init/add/split/statement/export/validate)
+- `python3 -m pytest` — **26 passed** (split math exact totals, fractional-share remainders, income/expense sign handling, payer-100% expense, payer-with-royalty rejection, rule validation, JSON round-trip, CLI init/add/split/statement/export/validate)
 - `ruff check src tests` — **All checks passed** (0 lint errors)
-- `python3 -m pytest` exit code 0; ruff exit code 0
 - `pip install -e .` builds and installs cleanly; `royalty-split --help` and `python3 -m book_royalty_splitter` both work
+- End-to-end CLI smoke test confirmed: payer-100% expense assigns full cost to payer; CSV export produces summary + per-author files
 - LICENSE copyright line verified exactly: `Copyright (c) 2026 Asdale Dynamics, LLC`
 - README credits Asdale Dynamics, LLC
 - No `.github/workflows` files added; no secrets, API keys, or personal data in files
@@ -61,10 +61,10 @@ mypy is not installed in this environment, so typecheck was not run separately; 
 - mypy typecheck could not be executed (tool not installed in this environment).
 - Percentages are stored as plain Decimals out of 100; no UI to edit an existing author's share (add a new rule instead).
 - CSV export produces one file per author plus a summary; no single combined ledger CSV.
-- Rounding policy hands leftover cents to the first author in a rule (documented in README).
+- Rounding policy hands leftover cents to the first member of a rule (documented in README).
 - No transaction editing or deletion commands (append-only ledger).
-- The `--payer` flag only applies to expenses; royalties always use the rule's percentages.
+- The `--payer` flag only applies to expenses; royalties always use the rule's percentages (passing `--payer` with a royalty is now rejected with a clear error).
 
 ## Commit
 
-One commit on the initial branch, plain message, no Co-authored-by trailers, not pushed, no remote created.
+Two commits on the initial branch, plain messages, no Co-authored-by trailers, not pushed, no remote created.

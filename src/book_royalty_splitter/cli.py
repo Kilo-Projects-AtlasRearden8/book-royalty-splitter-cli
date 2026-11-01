@@ -121,6 +121,9 @@ def cmd_add_tx(args: argparse.Namespace) -> int:
     ledger = _load_or_create(Path(args.file))
     rule = ledger.rule_by_name(args.rule)
     payer: str | None = args.payer or None
+    if payer and args.kind != "expense":
+        print(f"--payer only applies to expenses, not {args.kind}")
+        return 1
     if payer and payer not in rule.member_names():
         print(f"Payer {payer!r} is not a member of rule {args.rule!r}")
         return 1

@@ -5,28 +5,34 @@ and expenses by agreed percentages. It prints per-author statements and exports
 CSV files you can open in any spreadsheet app.
 
 Built by **Asdale Dynamics, LLC** — an Indiana LLC focused on beginner-friendly
-AI education, books and guides, and practical tools for authors and small
-businesses. Part of the same plain-English, step-by-step spirit as *The Massive
-AI Manual* and dylanasdale.github.io: no jargon, no condescension, no keys, no
-network.
+AI education, books, and guides. This tool is part of the same plain-English,
+step-by-step spirit as *The Massive AI Manual* and dylanasdale.github.io: no
+jargon, no condescension, no API keys, no network.
 
 ## Who this is for
 
-Co-authors, indie publishers, and KDP authors who want to answer one question
-together: *"After expenses, how much does each of us get?"*
+You're a co-author, indie publisher, or KDP author, and you want to answer one
+question together: *"After expenses, how much does each of us get?"*
 
-You define your co-authors and their agreed split percentages, log royalty
-payments and expenses, and the CLI does the math — exactly, to the cent — and
-shows you each person's income, expenses, and net balance.
+Maybe you wrote a book with a friend. Maybe you're splitting costs with a
+co-author on Amazon KDP. You each agreed on a percentage, but doing the math by
+hand — especially when expenses come out of one person's pocket — is fiddly and
+easy to get wrong. This CLI does the split for you, exactly to the cent, and
+gives each of you a clear statement you can trust.
+
+No accounts, no sign-up, no personal data sent anywhere. Everything lives in a
+plain JSON file on your computer.
 
 ## Features
 
-- **Split royalties and expenses** by agreed percentages (they can differ).
+- **Split royalties and expenses** by agreed percentages (royalty splits and
+  expense splits can differ).
 - **Exact money math** — uses decimal arithmetic so pennies never disappear.
-- **Per-author statements** — income, expenses, and net for each co-author.
-- **CSV export** — summary plus one transactions file per author.
+- **Per-author statements** — income, expenses, and net balance for each co-author.
+- **CSV export** — one summary file plus one transactions file per author, ready
+  for Excel, Google Sheets, or Numbers.
 - **Local-first, offline** — everything is a plain JSON file on your computer.
-  No API keys, no accounts, no network, no personal data sent anywhere.
+  No API keys, no accounts, no network.
 - **MIT licensed** — free to use, modify, and share.
 
 ## Install
@@ -52,7 +58,7 @@ royalty-split add-author "Dylan Asdale"
 royalty-split add-author "Jordan"
 ```
 
-Define how royalties are split:
+Define how royalties are split (percentages must total 100):
 
 ```bash
 royalty-split add-rule royalties "Dylan Asdale:60,Jordan:40"
@@ -144,7 +150,7 @@ edit it by hand if you want:
 python3 -m pytest
 ```
 
-24 tests cover the split math, statements, JSON round-trips, and the CLI.
+26 tests cover the split math, statements, JSON round-trips, and the CLI.
 
 ## License
 

@@ -124,6 +124,34 @@ def test_payer_bears_100_percent_expense() -> None:
         assert total == Decimal("-200.00")
 
 
+def test_fractional_cent_remainder_goes_to_first_member() -> None:
+    """When a split leaves a fraction of a cent, the first member gets it."""
+    ledger = _ledger()
+    ledger.rules.append(
+        SplitRule(
+            "r",
+            [
+                ("Dylan", Decimal("33.33")),
+                ("Jordan", Decimal("33.33")),
+                ("Casey", Decimal("33.34")),
+            ],
+        )
+    )
+    ledger.transactions.append(
+        Transaction("t1", "2026-01-01", "royalty", "desc", "cat", Decimal("10.00"), "r")
+    )
+    results = split_ledger(ledger)
+    for _tx, shares in results:
+        amounts = {s.author: s.amount for s in shares}
+        # 10.00 * 33.33% = 3.333 -> floor 3.33 each for Dylan & Jordan,
+        # Casey floor 3.33, leftover 0.01 goes to Dylan (first member).
+        assert amounts["Dylan"] == Decimal("3.34")
+        assert amounts["Jordan"] == Decimal("3.33")
+        assert amounts["Casey"] == Decimal("3.33")
+        total = sum(amounts.values(), Decimal("0"))
+        assert total == Decimal("10.00")
+
+
 def test_rule_percentages_must_sum_to_100() -> None:
     with pytest.raises(ValueError, match="sum to"):
         SplitRule("bad", [("Dylan", Decimal("60")), ("Jordan", Decimal("30"))])
