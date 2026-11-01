@@ -1,53 +1,49 @@
+
 # Byte-compiled / optimized
-__pycache__/
-*.py[cod]
-*$py.class
-
 # C extensions
-*.so
-
 # Distribution / packaging
+# Editor backups
+# IDE
+# Python
+# Testing
+# This project's runtime data
+# Virtual environments
+*$py.class
+*.egg
+*.egg-info/
+*.py[cod]
+*.pyc
+*.so
+*.swo
+*.swp
+*~node_modules/
+.DS_Store
 .Python
+.coverage
+.eggs/
+.env
+.env.*
+.idea/
+.installed.cfg
+.pytest_cache/
+.tox/
+.venv/
+.vscode/
+ENV/
+__pycache__/
 build/
 develop-eggs/
 dist/
+dist/*.tmp
 downloads/
 eggs/
-.eggs/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Virtual environments
-.venv/
 env/
-venv/
-ENV/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-.DS_Store
-
-# Python
-*.pyc
-
-# Testing
-.pytest_cache/
-.coverage
 htmlcov/
-.tox/
-
-# This project's runtime data
+parts/
+pip-wheel-metadata/
 royalty_splitter.json
+sdist/
 statements/
-
-# Editor backups
-*~
+var/
+venv/
+wheels/
